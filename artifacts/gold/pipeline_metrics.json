@@ -1,0 +1,19 @@
+{
+  "format": "delta",
+  "spark_version": "4.2.0",
+  "docs_ingested": 28,
+  "docs_clean": 28,
+  "docs_quarantined": 0,
+  "chunks": 65,
+  "embedding_dim": 384,
+  "tickets_ingested": 306,
+  "tickets_clean": 300,
+  "tickets_quarantined": 2,
+  "classifications": [
+    "finance",
+    "hr",
+    "internal",
+    "public",
+    "security"
+  ]
+}

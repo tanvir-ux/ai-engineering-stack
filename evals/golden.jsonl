@@ -1,0 +1,32 @@
+{"id": "q01", "question": "How many days of paid holiday does a full-time employee get each year?", "relevant_docs": ["hr-001"], "answer_contains": ["24"], "role": "employee"}
+{"id": "q02", "question": "Can I carry over vacation days into next year, and until when?", "relevant_docs": ["hr-001"], "answer_contains": ["5", "31 March"], "role": "employee"}
+{"id": "q03", "question": "How long is paid leave for the primary caregiver after a birth?", "relevant_docs": ["hr-002"], "answer_contains": ["16 weeks"], "role": "employee"}
+{"id": "q04", "question": "How many days a week can I work from home?", "relevant_docs": ["hr-003"], "answer_contains": ["3 days"], "role": "employee"}
+{"id": "q05", "question": "What is the home office stipend and when can I claim it?", "relevant_docs": ["hr-003"], "answer_contains": ["400"], "role": "employee"}
+{"id": "q06", "question": "What is the daily limit for meals on a business trip?", "relevant_docs": ["fin-001"], "answer_contains": ["60 euros"], "role": "employee"}
+{"id": "q07", "question": "Above what amount do I need to attach a receipt?", "relevant_docs": ["fin-001"], "answer_contains": ["25 euros"], "role": "employee"}
+{"id": "q08", "question": "How much is paid per kilometre when I drive my own car for work?", "relevant_docs": ["fin-001"], "answer_contains": ["0.58"], "role": "employee"}
+{"id": "q09", "question": "What is the maximum hotel price per night in London?", "relevant_docs": ["fin-002"], "answer_contains": ["280"], "role": "employee"}
+{"id": "q10", "question": "Who has to approve a purchase of 30,000 euros?", "relevant_docs": ["fin-003"], "answer_contains": ["director"], "role": "finance"}
+{"id": "q11", "question": "When does the accounting close finish after quarter end?", "relevant_docs": ["fin-004"], "answer_contains": ["5th business day"], "role": "finance"}
+{"id": "q12", "question": "What is the monthly spending limit on a corporate card?", "relevant_docs": ["fin-005"], "answer_contains": ["5,000"], "role": "finance"}
+{"id": "q13", "question": "How long must a password be?", "relevant_docs": ["it-001"], "answer_contains": ["14 characters"], "role": "employee"}
+{"id": "q14", "question": "What happens after five wrong sign-in attempts?", "relevant_docs": ["it-001"], "answer_contains": ["15 minutes"], "role": "employee"}
+{"id": "q15", "question": "How fast must I report a stolen laptop?", "relevant_docs": ["it-002"], "answer_contains": ["1 hour"], "role": "employee"}
+{"id": "q16", "question": "When does my VPN connection time out?", "relevant_docs": ["it-003"], "answer_contains": ["12 hours"], "role": "employee"}
+{"id": "q17", "question": "How do I ask for new software to be installed?", "relevant_docs": ["it-004"], "answer_contains": ["ticket"], "role": "employee"}
+{"id": "q18", "question": "How quickly does IT respond to a major outage?", "relevant_docs": ["it-005"], "answer_contains": ["15 minutes"], "role": "employee"}
+{"id": "q19", "question": "What protective equipment is required in loading zones?", "relevant_docs": ["ops-001"], "answer_contains": ["helmet"], "role": "employee"}
+{"id": "q20", "question": "Within how many hours must damaged goods be reported after delivery?", "relevant_docs": ["ops-002"], "answer_contains": ["48 hours"], "role": "employee"}
+{"id": "q21", "question": "Up to what value can customer service settle a claim alone?", "relevant_docs": ["ops-002"], "answer_contains": ["2,500"], "role": "employee"}
+{"id": "q22", "question": "How many years are export records retained?", "relevant_docs": ["ops-003"], "answer_contains": ["10 years"], "role": "employee"}
+{"id": "q23", "question": "How often do trucks need a safety inspection?", "relevant_docs": ["ops-004"], "answer_contains": ["10,000"], "role": "employee"}
+{"id": "q24", "question": "Where is the company headquartered and how many people work there?", "relevant_docs": ["pub-001"], "answer_contains": ["Rotterdam"], "role": "contractor"}
+{"id": "q25", "question": "By which year does the company want to be net-zero?", "relevant_docs": ["pub-002"], "answer_contains": ["2040"], "role": "contractor"}
+{"id": "q26", "question": "How long are customer delivery photos kept?", "relevant_docs": ["pub-003"], "answer_contains": ["90 days"], "role": "contractor"}
+{"id": "q27", "question": "What salary range applies to Level 4?", "relevant_docs": ["hr-004"], "answer_contains": ["76,000"], "role": "hr"}
+{"id": "q28", "question": "How often are performance reviews held and on what scale?", "relevant_docs": ["hr-005"], "answer_contains": ["twice a year", "5-point"], "role": "hr"}
+{"id": "q29", "question": "Within how many hours must regulators be told about a confirmed personal data breach?", "relevant_docs": ["sec-001"], "answer_contains": ["72 hours"], "role": "security"}
+{"id": "q30", "question": "How many days do we have to patch a critical vulnerability?", "relevant_docs": ["sec-003"], "answer_contains": ["7 days"], "role": "security"}
+{"id": "q31", "question": "How soon are privileged accounts switched off when someone leaves?", "relevant_docs": ["sec-004"], "answer_contains": ["4 hours"], "role": "security"}
+{"id": "q32", "question": "Which data classes does the company define?", "relevant_docs": ["sec-002"], "answer_contains": ["restricted"], "role": "employee"}

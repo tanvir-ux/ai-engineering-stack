@@ -1,0 +1,17 @@
+category,priority,tickets,avg_resolution_hours,open_tickets
+access,P1,3,31.0,0
+access,P2,22,35.38,6
+access,P3,33,50.05,12
+access,P4,21,46.47,6
+hardware,P1,4,30.0,0
+hardware,P2,14,49.25,6
+hardware,P3,30,47.81,14
+hardware,P4,21,41.92,9
+network,P1,4,66.0,3
+network,P2,26,36.33,17
+network,P3,27,50.26,8
+network,P4,20,58.08,8
+software,P1,10,51.75,2
+software,P2,14,54.4,4
+software,P3,30,55.05,8
+software,P4,21,47.07,7

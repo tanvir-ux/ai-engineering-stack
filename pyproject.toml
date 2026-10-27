@@ -1,0 +1,89 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-engineering-stack"
+version = "0.1.0"
+description = "A full-stack enterprise knowledge copilot that shows every layer of a modern AI system: React UI, OIDC auth, FastAPI gateway, LangGraph, OpenAI Agents SDK, FastMCP, PySpark/Delta, Databricks, Snowflake, hybrid RAG, evals, Docker, Kubernetes and Terraform."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Md Tanvir Alam", email = "tanviralamshuvo@gmail.com" }]
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "httpx>=0.27",
+  "pydantic>=2.8",
+  "pydantic-settings>=2.4",
+  "pyjwt[crypto]>=2.9",
+  "cryptography>=43",
+  "fastmcp>=3,<5",
+  "langgraph>=1.0",
+  "langgraph-checkpoint-sqlite>=2.0",
+  "openai>=1.60",
+  "openai-agents>=0.24",
+  "numpy>=1.26",
+  "faiss-cpu>=1.8",
+  "pyyaml>=6",
+  "opentelemetry-api>=1.27",
+  "opentelemetry-sdk>=1.27",
+  "opentelemetry-exporter-otlp-proto-http>=1.27",
+  "pandas>=2.2,<3",
+  "pyarrow>=16",
+]
+
+[project.optional-dependencies]
+spark = ["pyspark>=4.0", "delta-spark>=4.0"]
+pinecone = ["pinecone>=7"]
+langfuse = ["langfuse>=3"]
+snowflake = ["snowflake-snowpark-python>=1.20"]
+dev = [
+  "pytest>=8",
+  "pytest-asyncio>=0.24",
+  "ruff>=0.6",
+  "mypy>=1.11",
+  "sqlglot>=25",
+  "types-PyYAML",
+  "bandit>=1.7",
+  "pip-audit>=2.7",
+]
+
+[project.scripts]
+aistack = "aistack.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/aistack"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["spark: runs a local Spark session (slow, needs Java 17 or 21)"]
+filterwarnings = [
+  "ignore::DeprecationWarning",
+  "ignore::UserWarning",
+  "ignore::FutureWarning",
+  "ignore::pytest.PytestUnraisableExceptionWarning",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["frontend", "deploy/databricks/notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S", "SIM"]
+ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S105", "S106", "S108"]
+"scripts/*" = ["S603", "S607", "S310"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
+files = ["src/aistack"]
+warn_unused_ignores = false
+disallow_untyped_decorators = false
