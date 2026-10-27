@@ -23,10 +23,26 @@ REQUESTERS = [
     "hugo.martin@meridian.example",
 ]
 CATEGORIES = {
-    "hardware": ["Laptop battery drains in two hours", "Docking station not detected", "Monitor flickers"],
-    "access": ["Cannot sign in after password change", "Need access to shared drive", "MFA token lost"],
-    "software": ["Request for diagramming tool licence", "Spreadsheet add-in crashes", "Email client sync error"],
-    "network": ["VPN disconnects every hour", "Wi-Fi slow in meeting room 3", "Cannot reach warehouse portal"],
+    "hardware": [
+        "Laptop battery drains in two hours",
+        "Docking station not detected",
+        "Monitor flickers",
+    ],
+    "access": [
+        "Cannot sign in after password change",
+        "Need access to shared drive",
+        "MFA token lost",
+    ],
+    "software": [
+        "Request for diagramming tool licence",
+        "Spreadsheet add-in crashes",
+        "Email client sync error",
+    ],
+    "network": [
+        "VPN disconnects every hour",
+        "Wi-Fi slow in meeting room 3",
+        "Cannot reach warehouse portal",
+    ],
 }
 PRIORITIES = ["P1", "P2", "P3", "P4"]
 STATUSES = ["open", "in_progress", "resolved", "closed"]

@@ -1,23 +1,15 @@
 from __future__ import annotations
 
-import socket
-import threading
-import time
-from collections.abc import Iterator
 from typing import Any
 
 import httpx
 import pytest
-import uvicorn
 from fastmcp import Client
 from fastmcp.exceptions import ToolError
-from fastmcp.server.auth.providers.jwt import JWTVerifier as MCPJWTVerifier
 
 from aistack.auth.idp import MockIdP
 from aistack.auth.policy import Principal
-from aistack.mcp_tools.server import build_server
 from aistack.mcp_tools.service import KnowledgeService, NotFound, PermissionDenied
-from tests.conftest import AUDIENCE, ISSUER
 
 ALICE = Principal("a", "alice.nguyen@meridian.example", "Alice", ("employee",))
 BOB = Principal("b", "bob.fischer@meridian.example", "Bob", ("employee", "hr"))
@@ -68,31 +60,6 @@ def test_create_ticket_rules(service: KnowledgeService) -> None:
         service.create_ticket(ALICE, "ok title", "P9")
     with pytest.raises(ValueError):
         service.create_ticket(ALICE, "x")
-
-
-@pytest.fixture
-def mcp_url(idp: MockIdP, service: KnowledgeService) -> Iterator[str]:
-    from cryptography.hazmat.primitives import serialization
-
-    pub = idp._key.public_key().public_bytes(
-        serialization.Encoding.PEM, serialization.PublicFormat.SubjectPublicKeyInfo
-    )
-    auth = MCPJWTVerifier(public_key=pub.decode(), issuer=ISSUER, audience=AUDIENCE)
-    server = build_server(service, auth=auth)
-    with socket.socket() as s:
-        s.bind(("127.0.0.1", 0))
-        port = s.getsockname()[1]
-    app = server.http_app(transport="http")
-    srv = uvicorn.Server(uvicorn.Config(app, host="127.0.0.1", port=port, log_level="error"))
-    th = threading.Thread(target=srv.run, daemon=True)
-    th.start()
-    for _ in range(100):
-        if srv.started:
-            break
-        time.sleep(0.05)
-    yield f"http://127.0.0.1:{port}/mcp"
-    srv.should_exit = True
-    th.join(timeout=5)
 
 
 async def _call(url: str, token: str | None, tool: str, args: dict[str, Any]) -> Any:

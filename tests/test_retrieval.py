@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 import numpy as np
+import pytest
 
 from aistack.config import get_settings
 from aistack.data.chunking import chunk_text, content_hash, make_chunks, parse_document
@@ -11,7 +12,6 @@ from aistack.retrieval.embedding import HashingEmbedder
 from aistack.retrieval.hybrid import HybridIndex, rrf
 from aistack.retrieval.pinecone_store import PineconeStore
 from aistack.retrieval.types import Chunk
-import pytest
 
 
 @pytest.fixture(scope="module")
@@ -66,7 +66,8 @@ def test_all_modes_return_results(index: HybridIndex) -> None:
 
 def test_chunking_and_parsing() -> None:
     raw = (
-        "---\nid: x-1\ntitle: T\nclassification: internal\ndepartment: d\nupdated: 2026-01-01\n---\n# T\n\n"
+        "---\nid: x-1\ntitle: T\nclassification: internal\ndepartment: d\n"
+        "updated: 2026-01-01\n---\n# T\n\n"
         + " ".join(f"Sentence number {i} is here." for i in range(40))
     )
     doc = parse_document(raw)

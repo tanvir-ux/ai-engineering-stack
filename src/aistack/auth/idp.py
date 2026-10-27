@@ -13,10 +13,12 @@ from __future__ import annotations
 
 import base64
 import hashlib
+import os
 import secrets
 import time
 import urllib.parse
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 import jwt
@@ -67,13 +69,39 @@ class MockIdP:
         client_id: str = "aistack-web",
         redirect_prefixes: list[str] | None = None,
         token_ttl: int = 3600,
+        key_file: str | Path | None = None,
     ) -> None:
         self.issuer, self.audience, self.client_id = issuer.rstrip("/"), audience, client_id
         self.redirect_prefixes = redirect_prefixes or ["http://localhost", "http://127.0.0.1"]
         self.token_ttl = token_ttl
-        self._key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
-        self.kid = secrets.token_hex(4)
+        self._key = self._load_or_create_key(key_file)
+        der = self._key.public_key().public_bytes(
+            serialization.Encoding.DER, serialization.PublicFormat.SubjectPublicKeyInfo
+        )
+        self.kid = hashlib.sha256(der).hexdigest()[:12]
         self._codes: dict[str, _Code] = {}
+
+    @staticmethod
+    def _load_or_create_key(key_file: str | Path | None) -> rsa.RSAPrivateKey:
+        """Optionally persist the dev signing key so restarts keep issued tokens valid."""
+        path = Path(key_file) if key_file else None
+        if path is not None and path.exists():
+            loaded = serialization.load_pem_private_key(path.read_bytes(), password=None)
+            if not isinstance(loaded, rsa.RSAPrivateKey):
+                raise ValueError("idp key file must hold an RSA private key")
+            return loaded
+        key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+        if path is not None:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            pem = key.private_bytes(
+                serialization.Encoding.PEM,
+                serialization.PrivateFormat.PKCS8,
+                serialization.NoEncryption(),
+            )
+            fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+            with os.fdopen(fd, "wb") as fh:
+                fh.write(pem)
+        return key
 
     # -- keys / tokens -------------------------------------------------------------------
     def jwks(self) -> dict[str, Any]:

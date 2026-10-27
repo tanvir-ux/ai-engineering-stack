@@ -34,9 +34,12 @@ class Settings(BaseSettings):
     oidc_audience: str = "aistack-api"
     oidc_client_id: str = "aistack-web"
     oidc_redirect_prefixes: list[str] = ["http://localhost", "http://127.0.0.1"]
+    idp_key_file: str = ""  # mock IdP only: persist the dev signing key here (mode 0600)
     oidc_jwks_url: str = ""  # defaults to <issuer>/jwks.json
 
     # Services
+    tool_transport: str = "mcp"  # mcp (separate FastMCP server) | local (in-process, for tests)
+    cors_origins: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
     mcp_url: str = "http://127.0.0.1:8001/mcp/"
     mcp_internal_secret: str = ""  # optional shared secret between API and MCP (defence in depth)
     checkpoint_db: str = str(REPO_ROOT / ".checkpoints" / "graph.sqlite")
