@@ -60,8 +60,9 @@ def load_gold(session: SessionLike, gold_dir: Path) -> dict[str, int]:
     return {"chunks": len(chunks), "tickets": len(tickets)}
 
 
+# Only the integer EMBED_DIM constant is interpolated, so B608 is a false positive.
 _CHUNKS_SELECT = (
-    "SELECT CHUNK_ID, DOC_ID, TITLE, CLASSIFICATION, DEPARTMENT, TEXT, "
+    "SELECT CHUNK_ID, DOC_ID, TITLE, CLASSIFICATION, DEPARTMENT, TEXT, "  # nosec B608
     f"EMBEDDING::VECTOR(FLOAT, {EMBED_DIM}), EMBEDDING_MODEL FROM CHUNKS_LOAD"
 )
 
@@ -71,8 +72,9 @@ def search_sql(n_classes: int) -> str:
     if n_classes < 1:
         raise ValueError("at least one readable classification is required")
     marks = ", ".join("?" for _ in range(n_classes))
+    # Only "?" placeholders and an integer constant are interpolated (B608 false positive).
     return (
-        "SELECT CHUNK_ID, DOC_ID, TITLE, CLASSIFICATION, DEPARTMENT, TEXT, "
+        "SELECT CHUNK_ID, DOC_ID, TITLE, CLASSIFICATION, DEPARTMENT, TEXT, "  # nosec B608
         "VECTOR_COSINE_SIMILARITY("
         f"EMBEDDING, PARSE_JSON(?)::ARRAY::VECTOR(FLOAT, {EMBED_DIM})) AS SCORE "
         f"FROM MERIDIAN.RAW.CHUNKS WHERE CLASSIFICATION IN ({marks}) "

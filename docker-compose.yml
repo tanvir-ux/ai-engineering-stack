@@ -1,0 +1,52 @@
+# Local production-like stack: web (8080), gateway + mock IdP (8000), MCP tool server (8001, internal).
+# Start with `docker compose up --build`, then open http://localhost:8080/?live=http://localhost:8000
+# The browser talks to the gateway on localhost:8000. The MCP container fetches signing keys
+# from the gateway over the compose network.
+x-api: &api
+  build:
+    context: .
+    dockerfile: deploy/docker/Dockerfile.api
+  environment: &api-env
+    AISTACK_LLM_MODE: ${AISTACK_LLM_MODE:-fake}
+    AISTACK_OIDC_ISSUER: http://localhost:8000/idp
+    AISTACK_OIDC_JWKS_URL: http://api:8000/idp/jwks.json
+    AISTACK_MCP_URL: http://mcp:8001/mcp/
+    AISTACK_CORS_ORIGINS: '["http://localhost:8080","http://localhost:5173"]'
+    AISTACK_OIDC_REDIRECT_PREFIXES: '["http://localhost"]'
+    OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+
+services:
+  api:
+    <<: *api
+    ports: ["8000:8000"]
+    volumes: ["checkpoints:/data"]
+    depends_on:
+      mcp: { condition: service_started }
+  mcp:
+    <<: *api
+    command: ["aistack", "mcp", "--transport", "http", "--host", "0.0.0.0", "--port", "8001"]
+    environment:
+      <<: *api-env
+      AISTACK_OIDC_JWKS_URL: http://api:8000/idp/jwks.json
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; socket.create_connection(('127.0.0.1', 8001), 2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+  web:
+    build:
+      context: .
+      dockerfile: deploy/docker/Dockerfile.web
+      args:
+        VITE_API_BASE: http://localhost:8000
+    ports: ["8080:8080"]
+    depends_on:
+      api: { condition: service_healthy }
+
+volumes:
+  checkpoints:

@@ -1,0 +1,30 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    {{- include "aistack.labels" . | nindent 4 }}
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  tls:
+    - secretName: {{ .Values.ingress.tls.secretName }}
+      hosts:
+        - {{ .Values.publicWebUrl | trimPrefix "https://" }}
+        - {{ .Values.publicApiUrl | trimPrefix "https://" }}
+  rules:
+    - host: {{ .Values.publicWebUrl | trimPrefix "https://" }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service: { name: {{ .Release.Name }}-web, port: { number: 8080 } }
+    - host: {{ .Values.publicApiUrl | trimPrefix "https://" }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service: { name: {{ .Release.Name }}-api, port: { number: 8000 } }
+{{- end }}

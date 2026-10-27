@@ -1,0 +1,21 @@
+{{- if .Values.networkPolicy.enabled }}
+# Only the gateway may reach the MCP server. Everything else in the namespace is denied by default.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .Release.Name }}-mcp
+  labels:
+    {{- include "aistack.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "aistack.selector" (dict "ctx" . "c" "mcp") | nindent 6 }}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              {{- include "aistack.selector" (dict "ctx" . "c" "api") | nindent 14 }}
+      ports:
+        - { port: 8001, protocol: TCP }
+{{- end }}

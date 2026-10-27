@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-mcp
+  labels:
+    {{- include "aistack.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.mcp.replicas }}
+  selector:
+    matchLabels:
+      {{- include "aistack.selector" (dict "ctx" . "c" "mcp") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "aistack.selector" (dict "ctx" . "c" "mcp") | nindent 8 }}
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: mcp
+          image: "{{ .Values.image.api }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args: ["aistack", "mcp", "--transport", "http", "--host", "0.0.0.0", "--port", "8001"]
+          ports:
+            - { name: mcp, containerPort: 8001 }
+          envFrom:
+            - configMapRef: { name: {{ .Release.Name }}-config }
+            - secretRef: { name: {{ .Values.existingSecret }}, optional: true }
+          livenessProbe:
+            tcpSocket: { port: mcp }
+            periodSeconds: 15
+          readinessProbe:
+            tcpSocket: { port: mcp }
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.mcp.resources | nindent 12 }}
+          securityContext:
+            {{- include "aistack.securityContext" . | nindent 12 }}
+          volumeMounts:
+            - { name: tmp, mountPath: /tmp }
+      volumes:
+        - { name: tmp, emptyDir: {} }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-mcp
+  labels:
+    {{- include "aistack.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{- include "aistack.selector" (dict "ctx" . "c" "mcp") | nindent 4 }}
+  ports:
+    - { name: mcp, port: 8001, targetPort: mcp }

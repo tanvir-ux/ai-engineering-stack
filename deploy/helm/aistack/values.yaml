@@ -1,0 +1,51 @@
+image:
+  api: ghcr.io/tanvir-ux/ai-engineering-stack-api
+  web: ghcr.io/tanvir-ux/ai-engineering-stack-web
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+
+# Public URL of the gateway as the browser sees it. Also the OIDC issuer when the mock IdP is used.
+publicApiUrl: https://api.copilot.example.com
+publicWebUrl: https://copilot.example.com
+
+config:
+  llmMode: fake          # fake | openai | gemini
+  vectorStore: local     # local | pinecone
+  idpMode: mock          # mock | external. Use external (Keycloak, Auth0, Entra ID) in production.
+  oidcIssuer: ""         # defaults to <publicApiUrl>/idp when idpMode is mock
+  oidcAudience: aistack-api
+  rateLimitPerMinute: 30
+
+# Name of an existing Secret. The chart never creates secrets and never holds secret values.
+# Expected optional keys: OPENAI_API_KEY, GEMINI_API_KEY, PINECONE_API_KEY, AISTACK_MCP_INTERNAL_SECRET
+existingSecret: aistack-secrets
+
+api:
+  replicas: 2
+  resources:
+    requests: { cpu: 250m, memory: 512Mi }
+    limits: { cpu: "1", memory: 1Gi }
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 6
+    targetCPUUtilizationPercentage: 70
+mcp:
+  replicas: 2
+  resources:
+    requests: { cpu: 100m, memory: 256Mi }
+    limits: { cpu: 500m, memory: 512Mi }
+web:
+  replicas: 2
+  resources:
+    requests: { cpu: 25m, memory: 32Mi }
+    limits: { cpu: 100m, memory: 64Mi }
+
+ingress:
+  enabled: true
+  className: nginx
+  tls:
+    secretName: aistack-tls
+
+networkPolicy:
+  enabled: true

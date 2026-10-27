@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-web
+  labels:
+    {{- include "aistack.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.web.replicas }}
+  selector:
+    matchLabels:
+      {{- include "aistack.selector" (dict "ctx" . "c" "web") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "aistack.selector" (dict "ctx" . "c" "web") | nindent 8 }}
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: web
+          image: "{{ .Values.image.web }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - { name: http, containerPort: 8080 }
+          livenessProbe:
+            httpGet: { path: /, port: http }
+          readinessProbe:
+            httpGet: { path: /, port: http }
+          resources:
+            {{- toYaml .Values.web.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-web
+  labels:
+    {{- include "aistack.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{- include "aistack.selector" (dict "ctx" . "c" "web") | nindent 4 }}
+  ports:
+    - { name: http, port: 8080, targetPort: http }

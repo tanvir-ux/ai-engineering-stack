@@ -1,0 +1,13 @@
+.git
+.venv
+.dev
+.checkpoints
+**/node_modules
+frontend/dist
+**/__pycache__
+.mypy_cache
+.ruff_cache
+.pytest_cache
+lakehouse
+spark-warehouse
+docs/img
