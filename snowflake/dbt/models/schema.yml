@@ -1,0 +1,14 @@
+version: 2
+models:
+  - name: stg_tickets
+    columns:
+      - name: ticket_id
+        tests: [unique, not_null]
+      - name: priority
+        tests:
+          - accepted_values:
+              values: ["P1", "P2", "P3", "P4"]
+  - name: ticket_stats
+    columns:
+      - name: tickets
+        tests: [not_null]

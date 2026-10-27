@@ -1,0 +1,14 @@
+# Copy to ~/.dbt/profiles.yml. Credentials come from the environment, never from this file.
+meridian:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: MERIDIAN_COPILOT
+      database: MERIDIAN
+      warehouse: MERIDIAN_WH
+      schema: ANALYTICS
+      threads: 4

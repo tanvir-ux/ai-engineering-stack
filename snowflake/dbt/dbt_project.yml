@@ -1,0 +1,15 @@
+name: meridian
+version: "1.0.0"
+config-version: 2
+profile: meridian
+
+model-paths: ["models"]
+
+models:
+  meridian:
+    staging:
+      +materialized: view
+      +schema: ANALYTICS
+    marts:
+      +materialized: table
+      +schema: ANALYTICS

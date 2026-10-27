@@ -1,0 +1,48 @@
+resources:
+  schemas:
+    meridian:
+      catalog_name: ${var.catalog}
+      name: ${var.schema}
+      comment: Meridian Freight Co. knowledge copilot lakehouse (bronze / silver / gold)
+
+  volumes:
+    raw:
+      catalog_name: ${var.catalog}
+      schema_name: ${resources.schemas.meridian.name}
+      name: raw
+      comment: Landing zone. Upload data/raw here (see databricks/README.md).
+
+  jobs:
+    lakehouse_refresh:
+      name: meridian-lakehouse-refresh
+      description: Ingest, clean, chunk and embed Meridian documents and tickets into Delta tables.
+      max_concurrent_runs: 1
+      timeout_seconds: 3600
+      schedule:
+        quartz_cron_expression: "0 0 6 * * ?"
+        timezone_id: America/New_York
+        pause_status: PAUSED
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "3"
+            dependencies:
+              - ../dist/*.whl
+      tasks:
+        - task_key: build_tables
+          environment_key: default
+          python_wheel_task:
+            package_name: aistack
+            entry_point: aistack-lakehouse
+            named_parameters:
+              catalog: ${var.catalog}
+              schema: ${resources.schemas.meridian.name}
+              raw: /Volumes/${var.catalog}/${resources.schemas.meridian.name}/raw
+        - task_key: explore_gold
+          depends_on:
+            - task_key: build_tables
+          notebook_task:
+            notebook_path: ../notebooks/explore_gold.py
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${resources.schemas.meridian.name}

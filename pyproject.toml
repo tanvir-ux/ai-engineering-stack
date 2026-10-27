@@ -52,6 +52,7 @@ dev = [
 
 [project.scripts]
 aistack = "aistack.cli:main"
+aistack-lakehouse = "aistack.data.databricks_job:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/aistack"]
@@ -71,15 +72,17 @@ filterwarnings = [
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-extend-exclude = ["frontend", "deploy/databricks/notebooks"]
+extend-exclude = ["frontend", "databricks/notebooks"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "S", "SIM"]
 ignore = ["S101"]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["S105", "S106", "S108"]
+"tests/*" = ["S105", "S106", "S108", "S608", "S701"]
 "scripts/*" = ["S603", "S607", "S310", "S311"]
+# Only constants and "?" placeholders are interpolated; values are always bound parameters.
+"src/aistack/data/snowflake_pipeline.py" = ["S608"]
 
 [tool.mypy]
 python_version = "3.12"

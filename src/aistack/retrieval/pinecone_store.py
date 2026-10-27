@@ -61,7 +61,13 @@ class PineconeStore:
         return len(records)
 
     def search(self, query: str, k: int = 5, allowed_classes: set[str] | None = None) -> list[Hit]:
-        flt = {"classification": {"$in": sorted(allowed_classes)}} if allowed_classes else None
+        if allowed_classes is not None and not allowed_classes:
+            return []  # fail closed: no readable classes means no results, never "no filter"
+        flt = (
+            {"classification": {"$in": sorted(allowed_classes)}}
+            if allowed_classes is not None
+            else None
+        )
         qv = [float(x) for x in self.embedder.embed([query])[0]]
         res = self.index.query(
             vector=qv, top_k=k, filter=flt, include_metadata=True, namespace=self.namespace

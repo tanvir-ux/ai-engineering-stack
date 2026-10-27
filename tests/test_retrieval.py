@@ -128,3 +128,11 @@ def test_pinecone_adapter_roundtrip_and_acl_filter(index: HybridIndex) -> None:
     assert all(h.chunk.classification == "internal" for h in hits)
     chunk = Chunk("a#0", "a", "t", "hr", "d", "x")
     assert store.upsert([chunk]) == 1
+
+
+def test_pinecone_empty_class_set_fails_closed(index: HybridIndex) -> None:
+    fake = FakePinecone()
+    store = PineconeStore(fake, HashingEmbedder())
+    store.upsert(index.chunks)
+    assert store.search("password", k=3, allowed_classes=set()) == []
+    assert fake.last_filter is None  # never even queried without a filter

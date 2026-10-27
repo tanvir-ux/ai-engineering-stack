@@ -1,0 +1,37 @@
+# Databricks Asset Bundle for the Meridian lakehouse job.
+# Status: validated with `databricks bundle validate`; NOT deployed or run on a live workspace.
+bundle:
+  name: meridian-lakehouse
+  uuid: 6f1d3a52-8c1e-4f0e-9d0e-5b7a2a5d8c11
+
+include:
+  - resources/*.yml
+
+artifacts:
+  aistack_wheel:
+    type: whl
+    build: uv build --wheel --out-dir dist
+    path: ..
+
+variables:
+  catalog:
+    description: Unity Catalog catalog that owns the tables
+    default: main
+  schema:
+    description: Schema that holds the bronze / silver / gold tables
+    default: meridian
+
+targets:
+  dev:
+    mode: development
+    default: true
+    # workspace host comes from your CLI profile or DATABRICKS_HOST (never committed)
+    variables:
+      schema: meridian_dev
+
+  prod:
+    mode: production
+    workspace:
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      schema: meridian

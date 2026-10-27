@@ -55,11 +55,14 @@ _CHUNK = T.StructType(
 )
 
 
-def get_spark(app: str = "aistack", *, delta: bool = True, cores: int = 2) -> SparkSession:
+def get_spark(
+    app: str = "aistack", *, delta: bool = True, cores: int = 2, warehouse: str | None = None
+) -> SparkSession:
     builder = (
         SparkSession.builder.master(f"local[{cores}]")
         .appName(app)
         .config("spark.ui.enabled", "false")
+        .config("spark.sql.warehouse.dir", warehouse or "spark-warehouse")
         .config("spark.sql.shuffle.partitions", "4")
         .config("spark.default.parallelism", "4")
         .config("spark.sql.session.timeZone", "UTC")
@@ -104,8 +107,13 @@ def _write(df: DataFrame, path: Path, fmt: str) -> None:
 # Stage 1: ingest (bronze)
 # ---------------------------------------------------------------------------------------------
 def ingest_docs(spark: SparkSession, raw_dir: Path) -> DataFrame:
-    rdd = spark.sparkContext.wholeTextFiles(str(raw_dir / "docs" / "*.md"))
-    df = rdd.toDF(["path", "raw_text"])
+    # `wholetext` reads each file as one row. No RDD API, so this also runs on serverless compute.
+    df = (
+        spark.read.format("text")
+        .option("wholetext", True)
+        .load(str(raw_dir / "docs" / "*.md"))
+        .select(F.col("_metadata.file_path").alias("path"), F.col("value").alias("raw_text"))
+    )
     return df.withColumn("source_file", F.regexp_extract("path", r"([^/]+)$", 1)).withColumn(
         "ingested_at", F.current_timestamp()
     )
