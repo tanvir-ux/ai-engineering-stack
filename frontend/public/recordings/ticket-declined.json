@@ -1,0 +1,174 @@
+{
+  "id": "ticket-declined",
+  "title": "Decline the action",
+  "blurb": "If the human declines, nothing is written.",
+  "persona": {
+    "id": "alice",
+    "email": "alice.nguyen@meridian.example",
+    "name": "Alice Nguyen",
+    "roles": [
+      "employee"
+    ],
+    "document_classes": [
+      "internal",
+      "public"
+    ],
+    "tools": [
+      "create_ticket",
+      "get_document",
+      "list_my_tickets",
+      "search_documents"
+    ]
+  },
+  "question": "Create a ticket: replace my broken keyboard, priority P3",
+  "segments": [
+    {
+      "phase": "chat",
+      "events": [
+        {
+          "type": "start",
+          "thread_id": "08ef7c22c4e246f5b8dc34c565f01015",
+          "t_ms": 2.4
+        },
+        {
+          "type": "retrieved",
+          "chunks": [
+            {
+              "chunk_id": "it-005#0",
+              "title": "IT support service levels",
+              "classification": "internal",
+              "score": 0.55
+            },
+            {
+              "chunk_id": "it-005#1",
+              "title": "IT support service levels",
+              "classification": "internal",
+              "score": 0.542
+            },
+            {
+              "chunk_id": "it-004#0",
+              "title": "Software request process",
+              "classification": "internal",
+              "score": 0.5137
+            },
+            {
+              "chunk_id": "ops-004#1",
+              "title": "Fleet maintenance schedule",
+              "classification": "internal",
+              "score": 0.252
+            }
+          ],
+          "t_ms": 22.0
+        },
+        {
+          "type": "plan",
+          "action": "tool",
+          "tool": "create_ticket",
+          "reason": "The user asked to create a ticket, which changes state.",
+          "arguments": {
+            "title": "Replace my broken keyboard",
+            "priority": "P3"
+          },
+          "t_ms": 27.8
+        },
+        {
+          "type": "approval_required",
+          "tool": "create_ticket",
+          "arguments": {
+            "title": "Replace my broken keyboard",
+            "priority": "P3"
+          },
+          "message": "The assistant wants to run create_ticket with {'title': 'Replace my broken keyboard', 'priority': 'P3'}. Approve?",
+          "t_ms": 29.7
+        },
+        {
+          "type": "done",
+          "status": "awaiting_approval",
+          "t_ms": 35.1
+        }
+      ]
+    },
+    {
+      "phase": "decline",
+      "events": [
+        {
+          "type": "start",
+          "thread_id": "08ef7c22c4e246f5b8dc34c565f01015",
+          "t_ms": 3.4
+        },
+        {
+          "type": "approval",
+          "approved": false,
+          "t_ms": 4.1
+        },
+        {
+          "type": "token",
+          "text": "Understood. ",
+          "t_ms": 8.9
+        },
+        {
+          "type": "token",
+          "text": "I ",
+          "t_ms": 9.0
+        },
+        {
+          "type": "token",
+          "text": "did ",
+          "t_ms": 9.1
+        },
+        {
+          "type": "token",
+          "text": "not ",
+          "t_ms": 9.2
+        },
+        {
+          "type": "token",
+          "text": "create ",
+          "t_ms": 9.2
+        },
+        {
+          "type": "token",
+          "text": "the ",
+          "t_ms": 9.7
+        },
+        {
+          "type": "token",
+          "text": "ticket ",
+          "t_ms": 9.7
+        },
+        {
+          "type": "token",
+          "text": "because ",
+          "t_ms": 9.7
+        },
+        {
+          "type": "token",
+          "text": "the ",
+          "t_ms": 9.7
+        },
+        {
+          "type": "token",
+          "text": "approval ",
+          "t_ms": 9.7
+        },
+        {
+          "type": "token",
+          "text": "was ",
+          "t_ms": 9.8
+        },
+        {
+          "type": "token",
+          "text": "declined.",
+          "t_ms": 9.8
+        },
+        {
+          "type": "done",
+          "status": "completed",
+          "t_ms": 12.6
+        }
+      ]
+    }
+  ],
+  "recorded_at": "2026-10-27T18:59:40-0400",
+  "note": "Recorded from the real stack. The model is the deterministic fake."
+}

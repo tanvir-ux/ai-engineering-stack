@@ -22,6 +22,8 @@ def test_plan_rules() -> None:
     )
     p = plan_for("Question: Open a ticket: VPN keeps dropping, priority P1")
     assert p["priority"] == "P1" and "P1" not in p["title"]
+    t = plan_for("Question: Create a ticket: VPN keeps disconnecting every hour, priority P2")
+    assert t["title"] == "VPN keeps disconnecting every hour" and t["priority"] == "P2"
     assert plan_for("Question: show my tickets")["tool"] == "list_my_tickets"
     assert plan_for("Question: ticket stats for network")["tool"] == "ticket_stats"
     assert plan_for("Question: How many days of leave?")["action"] == "answer"

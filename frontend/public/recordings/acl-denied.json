@@ -1,0 +1,211 @@
+{
+  "id": "acl-denied",
+  "title": "Same question, wrong role",
+  "blurb": "The answer lives in an HR-only document. Alice cannot read it, so it is never retrieved.",
+  "persona": {
+    "id": "alice",
+    "email": "alice.nguyen@meridian.example",
+    "name": "Alice Nguyen",
+    "roles": [
+      "employee"
+    ],
+    "document_classes": [
+      "internal",
+      "public"
+    ],
+    "tools": [
+      "create_ticket",
+      "get_document",
+      "list_my_tickets",
+      "search_documents"
+    ]
+  },
+  "question": "What are the salary bands for Level 4?",
+  "segments": [
+    {
+      "phase": "chat",
+      "events": [
+        {
+          "type": "start",
+          "thread_id": "42483468f33c48c5aa6208a837b9af13",
+          "t_ms": 2.7
+        },
+        {
+          "type": "retrieved",
+          "chunks": [
+            {
+              "chunk_id": "fin-002#2",
+              "title": "Travel policy",
+              "classification": "internal",
+              "score": 0.5875
+            },
+            {
+              "chunk_id": "hr-002#0",
+              "title": "Parental leave",
+              "classification": "internal",
+              "score": 0.5755
+            },
+            {
+              "chunk_id": "it-005#1",
+              "title": "IT support service levels",
+              "classification": "internal",
+              "score": 0.5717
+            },
+            {
+              "chunk_id": "fin-002#1",
+              "title": "Travel policy",
+              "classification": "internal",
+              "score": 0.5642
+            }
+          ],
+          "t_ms": 23.8
+        },
+        {
+          "type": "plan",
+          "action": "answer",
+          "tool": null,
+          "reason": "The question can be answered from documents.",
+          "arguments": {},
+          "t_ms": 29.1
+        },
+        {
+          "type": "token",
+          "text": "I ",
+          "t_ms": 36.3
+        },
+        {
+          "type": "token",
+          "text": "could ",
+          "t_ms": 36.3
+        },
+        {
+          "type": "token",
+          "text": "not ",
+          "t_ms": 36.3
+        },
+        {
+          "type": "token",
+          "text": "find ",
+          "t_ms": 36.4
+        },
+        {
+          "type": "token",
+          "text": "anything ",
+          "t_ms": 36.4
+        },
+        {
+          "type": "token",
+          "text": "about ",
+          "t_ms": 36.5
+        },
+        {
+          "type": "token",
+          "text": "that ",
+          "t_ms": 37.0
+        },
+        {
+          "type": "token",
+          "text": "in ",
+          "t_ms": 37.1
+        },
+        {
+          "type": "token",
+          "text": "the ",
+          "t_ms": 37.1
+        },
+        {
+          "type": "token",
+          "text": "documents ",
+          "t_ms": 37.1
+        },
+        {
+          "type": "token",
+          "text": "you ",
+          "t_ms": 37.1
+        },
+        {
+          "type": "token",
+          "text": "have ",
+          "t_ms": 37.1
+        },
+        {
+          "type": "token",
+          "text": "access ",
+          "t_ms": 37.1
+        },
+        {
+          "type": "token",
+          "text": "to. ",
+          "t_ms": 37.1
+        },
+        {
+          "type": "token",
+          "text": "If ",
+          "t_ms": 37.2
+        },
+        {
+          "type": "token",
+          "text": "you ",
+          "t_ms": 37.2
+        },
+        {
+          "type": "token",
+          "text": "expect ",
+          "t_ms": 37.2
+        },
+        {
+          "type": "token",
+          "text": "it ",
+          "t_ms": 37.2
+        },
+        {
+          "type": "token",
+          "text": "to ",
+          "t_ms": 37.2
+        },
+        {
+          "type": "token",
+          "text": "exist, ",
+          "t_ms": 37.2
+        },
+        {
+          "type": "token",
+          "text": "ask ",
+          "t_ms": 37.2
+        },
+        {
+          "type": "token",
+          "text": "the ",
+          "t_ms": 37.2
+        },
+        {
+          "type": "token",
+          "text": "document ",
+          "t_ms": 37.2
+        },
+        {
+          "type": "token",
+          "text": "owner ",
+          "t_ms": 37.3
+        },
+        {
+          "type": "token",
+          "text": "for ",
+          "t_ms": 37.3
+        },
+        {
+          "type": "token",
+          "text": "access.",
+          "t_ms": 37.3
+        },
+        {
+          "type": "done",
+          "status": "completed",
+          "t_ms": 40.8
+        }
+      ]
+    }
+  ],
+  "recorded_at": "2026-10-27T18:59:39-0400",
+  "note": "Recorded from the real stack. The model is the deterministic fake."
+}

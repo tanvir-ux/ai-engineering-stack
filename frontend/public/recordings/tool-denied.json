@@ -1,0 +1,159 @@
+{
+  "id": "tool-denied",
+  "title": "Per-user tool permission",
+  "blurb": "Hugo is an employee, but a per-user rule denies him ticket creation. It is refused before approval is even asked.",
+  "persona": {
+    "id": "hugo",
+    "email": "hugo.martin@meridian.example",
+    "name": "Hugo Martin",
+    "roles": [
+      "employee"
+    ],
+    "document_classes": [
+      "internal",
+      "public"
+    ],
+    "tools": [
+      "get_document",
+      "list_my_tickets",
+      "search_documents"
+    ]
+  },
+  "question": "Create a ticket: need access to the shared drive, priority P3",
+  "segments": [
+    {
+      "phase": "chat",
+      "events": [
+        {
+          "type": "start",
+          "thread_id": "7fed8e743d9c429e808eb31eb923209c",
+          "t_ms": 2.0
+        },
+        {
+          "type": "retrieved",
+          "chunks": [
+            {
+              "chunk_id": "sec-002#0",
+              "title": "Data classification standard",
+              "classification": "internal",
+              "score": 0.5534
+            },
+            {
+              "chunk_id": "it-003#0",
+              "title": "VPN and network access",
+              "classification": "internal",
+              "score": 0.55
+            },
+            {
+              "chunk_id": "pub-003#2",
+              "title": "Customer privacy notice",
+              "classification": "public",
+              "score": 0.5406
+            },
+            {
+              "chunk_id": "it-005#0",
+              "title": "IT support service levels",
+              "classification": "internal",
+              "score": 0.5346
+            }
+          ],
+          "t_ms": 18.8
+        },
+        {
+          "type": "plan",
+          "action": "tool",
+          "tool": "create_ticket",
+          "reason": "The user asked to create a ticket, which changes state.",
+          "arguments": {
+            "title": "Need access to the shared drive",
+            "priority": "P3"
+          },
+          "t_ms": 24.0
+        },
+        {
+          "type": "denied",
+          "tool": "create_ticket",
+          "message": "hugo.martin@meridian.example is not permitted to use create_ticket",
+          "t_ms": 24.9
+        },
+        {
+          "type": "token",
+          "text": "I ",
+          "t_ms": 29.3
+        },
+        {
+          "type": "token",
+          "text": "could ",
+          "t_ms": 29.3
+        },
+        {
+          "type": "token",
+          "text": "not ",
+          "t_ms": 29.4
+        },
+        {
+          "type": "token",
+          "text": "complete ",
+          "t_ms": 29.5
+        },
+        {
+          "type": "token",
+          "text": "that: ",
+          "t_ms": 29.5
+        },
+        {
+          "type": "token",
+          "text": "permission ",
+          "t_ms": 29.7
+        },
+        {
+          "type": "token",
+          "text": "denied: ",
+          "t_ms": 29.8
+        },
+        {
+          "type": "token",
+          "text": "hugo.martin@meridian.example ",
+          "t_ms": 29.8
+        },
+        {
+          "type": "token",
+          "text": "is ",
+          "t_ms": 29.9
+        },
+        {
+          "type": "token",
+          "text": "not ",
+          "t_ms": 29.9
+        },
+        {
+          "type": "token",
+          "text": "permitted ",
+          "t_ms": 30.0
+        },
+        {
+          "type": "token",
+          "text": "to ",
+          "t_ms": 30.0
+        },
+        {
+          "type": "token",
+          "text": "use ",
+          "t_ms": 30.1
+        },
+        {
+          "type": "token",
+          "text": "create_ticket.",
+          "t_ms": 30.1
+        },
+        {
+          "type": "done",
+          "status": "completed",
+          "t_ms": 33.6
+        }
+      ]
+    }
+  ],
+  "recorded_at": "2026-10-27T18:59:40-0400",
+  "note": "Recorded from the real stack. The model is the deterministic fake."
+}

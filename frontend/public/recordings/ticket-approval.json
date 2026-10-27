@@ -1,0 +1,191 @@
+{
+  "id": "ticket-approval",
+  "title": "Take an action, with human approval",
+  "blurb": "The workflow pauses before a write action. A human approves, then it continues.",
+  "persona": {
+    "id": "alice",
+    "email": "alice.nguyen@meridian.example",
+    "name": "Alice Nguyen",
+    "roles": [
+      "employee"
+    ],
+    "document_classes": [
+      "internal",
+      "public"
+    ],
+    "tools": [
+      "create_ticket",
+      "get_document",
+      "list_my_tickets",
+      "search_documents"
+    ]
+  },
+  "question": "Create a ticket: VPN keeps disconnecting every hour, priority P2",
+  "segments": [
+    {
+      "phase": "chat",
+      "events": [
+        {
+          "type": "start",
+          "thread_id": "f05c364e6df34ac0968262e17c6b14b0",
+          "t_ms": 2.5
+        },
+        {
+          "type": "retrieved",
+          "chunks": [
+            {
+              "chunk_id": "it-005#0",
+              "title": "IT support service levels",
+              "classification": "internal",
+              "score": 0.5903
+            },
+            {
+              "chunk_id": "it-002#0",
+              "title": "Laptop and device policy",
+              "classification": "internal",
+              "score": 0.5509
+            },
+            {
+              "chunk_id": "it-003#0",
+              "title": "VPN and network access",
+              "classification": "internal",
+              "score": 0.525
+            },
+            {
+              "chunk_id": "it-005#1",
+              "title": "IT support service levels",
+              "classification": "internal",
+              "score": 0.5192
+            }
+          ],
+          "t_ms": 21.7
+        },
+        {
+          "type": "plan",
+          "action": "tool",
+          "tool": "create_ticket",
+          "reason": "The user asked to create a ticket, which changes state.",
+          "arguments": {
+            "title": "VPN keeps disconnecting every hour",
+            "priority": "P2"
+          },
+          "t_ms": 27.0
+        },
+        {
+          "type": "approval_required",
+          "tool": "create_ticket",
+          "arguments": {
+            "title": "VPN keeps disconnecting every hour",
+            "priority": "P2"
+          },
+          "message": "The assistant wants to run create_ticket with {'title': 'VPN keeps disconnecting every hour', 'priority': 'P2'}. Approve?",
+          "t_ms": 28.7
+        },
+        {
+          "type": "done",
+          "status": "awaiting_approval",
+          "t_ms": 31.3
+        }
+      ]
+    },
+    {
+      "phase": "approve",
+      "events": [
+        {
+          "type": "start",
+          "thread_id": "f05c364e6df34ac0968262e17c6b14b0",
+          "t_ms": 3.2
+        },
+        {
+          "type": "approval",
+          "approved": true,
+          "t_ms": 4.1
+        },
+        {
+          "type": "tool_result",
+          "tool": "create_ticket",
+          "result": {
+            "ticket_id": "INC-9001",
+            "requester": "alice.nguyen@meridian.example",
+            "priority": "P2",
+            "status": "open",
+            "summary": "VPN keeps disconnecting every hour"
+          },
+          "t_ms": 21.0
+        },
+        {
+          "type": "token",
+          "text": "Done. ",
+          "t_ms": 25.1
+        },
+        {
+          "type": "token",
+          "text": "I ",
+          "t_ms": 25.1
+        },
+        {
+          "type": "token",
+          "text": "created ",
+          "t_ms": 25.2
+        },
+        {
+          "type": "token",
+          "text": "ticket ",
+          "t_ms": 25.2
+        },
+        {
+          "type": "token",
+          "text": "INC-9001 ",
+          "t_ms": 25.2
+        },
+        {
+          "type": "token",
+          "text": "(P2): ",
+          "t_ms": 25.4
+        },
+        {
+          "type": "token",
+          "text": "VPN ",
+          "t_ms": 25.5
+        },
+        {
+          "type": "token",
+          "text": "keeps ",
+          "t_ms": 25.5
+        },
+        {
+          "type": "token",
+          "text": "disconnecting ",
+          "t_ms": 25.6
+        },
+        {
+          "type": "token",
+          "text": "every ",
+          "t_ms": 25.6
+        },
+        {
+          "type": "token",
+          "text": "hour. ",
+          "t_ms": 25.7
+        },
+        {
+          "type": "token",
+          "text": "Status: ",
+          "t_ms": 25.7
+        },
+        {
+          "type": "token",
+          "text": "open.",
+          "t_ms": 25.8
+        },
+        {
+          "type": "done",
+          "status": "completed",
+          "t_ms": 28.0
+        }
+      ]
+    }
+  ],
+  "recorded_at": "2026-10-27T18:59:40-0400",
+  "note": "Recorded from the real stack. The model is the deterministic fake."
+}

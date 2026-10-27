@@ -56,6 +56,7 @@ def plan_for(user_text: str) -> dict[str, Any]:
         ).strip(" .?")
         prio = re.search(r"\bP([1-4])\b", q)
         title = re.sub(r"\s*\bP[1-4]\b\s*", " ", title).strip()
+        title = re.sub(r"(?i)[\s,;:-]*\bpriority\b[\s,;:-]*$", "", title).strip(" ,;:.-")
         title = re.sub(r"(?i)^(a|an|the)\s+", "", title)
         title = title[:1].upper() + title[1:]
         plan.update(

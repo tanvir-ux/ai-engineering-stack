@@ -1,0 +1,51 @@
+[
+  {
+    "id": "holiday",
+    "title": "Ask a policy question",
+    "blurb": "Retrieval-augmented answer with citations. Alice is an ordinary employee.",
+    "question": "How many days of paid holiday does a full-time employee get each year?",
+    "persona": "alice"
+  },
+  {
+    "id": "acl-denied",
+    "title": "Same question, wrong role",
+    "blurb": "The answer lives in an HR-only document. Alice cannot read it, so it is never retrieved.",
+    "question": "What are the salary bands for Level 4?",
+    "persona": "alice"
+  },
+  {
+    "id": "acl-allowed",
+    "title": "Same question, right role",
+    "blurb": "Bob has the HR role, so the HR-only document is retrieved and cited.",
+    "question": "What are the salary bands for Level 4?",
+    "persona": "bob"
+  },
+  {
+    "id": "ticket-approval",
+    "title": "Take an action, with human approval",
+    "blurb": "The workflow pauses before a write action. A human approves, then it continues.",
+    "question": "Create a ticket: VPN keeps disconnecting every hour, priority P2",
+    "persona": "alice"
+  },
+  {
+    "id": "ticket-declined",
+    "title": "Decline the action",
+    "blurb": "If the human declines, nothing is written.",
+    "question": "Create a ticket: replace my broken keyboard, priority P3",
+    "persona": "alice"
+  },
+  {
+    "id": "tool-denied",
+    "title": "Per-user tool permission",
+    "blurb": "Hugo is an employee, but a per-user rule denies him ticket creation. It is refused before approval is even asked.",
+    "question": "Create a ticket: need access to the shared drive, priority P3",
+    "persona": "hugo"
+  },
+  {
+    "id": "security-stats",
+    "title": "Role-gated analytics tool",
+    "blurb": "Only the security role may call the ticket statistics tool, which is served over MCP.",
+    "question": "Show me the ticket statistics",
+    "persona": "dave"
+  }
+]

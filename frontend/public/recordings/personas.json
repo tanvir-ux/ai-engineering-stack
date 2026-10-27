@@ -1,0 +1,61 @@
+[
+  {
+    "id": "alice",
+    "email": "alice.nguyen@meridian.example",
+    "name": "Alice Nguyen",
+    "roles": [
+      "employee"
+    ]
+  },
+  {
+    "id": "bob",
+    "email": "bob.fischer@meridian.example",
+    "name": "Bob Fischer",
+    "roles": [
+      "employee",
+      "hr"
+    ]
+  },
+  {
+    "id": "carol",
+    "email": "carol.silva@meridian.example",
+    "name": "Carol Silva",
+    "roles": [
+      "employee",
+      "finance"
+    ]
+  },
+  {
+    "id": "dave",
+    "email": "dave.okafor@meridian.example",
+    "name": "Dave Okafor",
+    "roles": [
+      "employee",
+      "security"
+    ]
+  },
+  {
+    "id": "eve",
+    "email": "eve.contractor@meridian.example",
+    "name": "Eve (contractor)",
+    "roles": [
+      "contractor"
+    ]
+  },
+  {
+    "id": "farid",
+    "email": "farid.rahman@meridian.example",
+    "name": "Farid Rahman",
+    "roles": [
+      "admin"
+    ]
+  },
+  {
+    "id": "hugo",
+    "email": "hugo.martin@meridian.example",
+    "name": "Hugo Martin",
+    "roles": [
+      "employee"
+    ]
+  }
+]

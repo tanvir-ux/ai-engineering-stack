@@ -1,0 +1,246 @@
+{
+  "id": "security-stats",
+  "title": "Role-gated analytics tool",
+  "blurb": "Only the security role may call the ticket statistics tool, which is served over MCP.",
+  "persona": {
+    "id": "dave",
+    "email": "dave.okafor@meridian.example",
+    "name": "Dave Okafor",
+    "roles": [
+      "employee",
+      "security"
+    ],
+    "document_classes": [
+      "internal",
+      "public",
+      "security"
+    ],
+    "tools": [
+      "create_ticket",
+      "get_document",
+      "list_my_tickets",
+      "search_documents",
+      "ticket_stats"
+    ]
+  },
+  "question": "Show me the ticket statistics",
+  "segments": [
+    {
+      "phase": "chat",
+      "events": [
+        {
+          "type": "start",
+          "thread_id": "379aaaf7b853489a82a9fe12e91515e5",
+          "t_ms": 2.1
+        },
+        {
+          "type": "retrieved",
+          "chunks": [
+            {
+              "chunk_id": "sec-002#1",
+              "title": "Data classification standard",
+              "classification": "internal",
+              "score": 0.5875
+            },
+            {
+              "chunk_id": "it-004#0",
+              "title": "Software request process",
+              "classification": "internal",
+              "score": 0.5872
+            },
+            {
+              "chunk_id": "ops-001#1",
+              "title": "Warehouse safety rules",
+              "classification": "internal",
+              "score": 0.256
+            },
+            {
+              "chunk_id": "pub-004#0",
+              "title": "Code of conduct",
+              "classification": "public",
+              "score": 0.2519
+            }
+          ],
+          "t_ms": 21.8
+        },
+        {
+          "type": "plan",
+          "action": "tool",
+          "tool": "ticket_stats",
+          "reason": "The user asked for ticket statistics.",
+          "arguments": {},
+          "t_ms": 27.1
+        },
+        {
+          "type": "tool_result",
+          "tool": "ticket_stats",
+          "result": {
+            "category": "all",
+            "tickets": 300,
+            "open_tickets": 110,
+            "avg_resolution_hours": 47.7,
+            "by_priority": {
+              "P1": 21,
+              "P2": 76,
+              "P3": 120,
+              "P4": 83
+            }
+          },
+          "t_ms": 52.4
+        },
+        {
+          "type": "token",
+          "text": "For ",
+          "t_ms": 58.5
+        },
+        {
+          "type": "token",
+          "text": "all ",
+          "t_ms": 58.5
+        },
+        {
+          "type": "token",
+          "text": "tickets ",
+          "t_ms": 58.9
+        },
+        {
+          "type": "token",
+          "text": "there ",
+          "t_ms": 58.9
+        },
+        {
+          "type": "token",
+          "text": "are ",
+          "t_ms": 58.9
+        },
+        {
+          "type": "token",
+          "text": "300 ",
+          "t_ms": 58.9
+        },
+        {
+          "type": "token",
+          "text": "in ",
+          "t_ms": 59.1
+        },
+        {
+          "type": "token",
+          "text": "total, ",
+          "t_ms": 59.1
+        },
+        {
+          "type": "token",
+          "text": "110 ",
+          "t_ms": 59.2
+        },
+        {
+          "type": "token",
+          "text": "still ",
+          "t_ms": 59.2
+        },
+        {
+          "type": "token",
+          "text": "open, ",
+          "t_ms": 59.2
+        },
+        {
+          "type": "token",
+          "text": "with ",
+          "t_ms": 59.3
+        },
+        {
+          "type": "token",
+          "text": "an ",
+          "t_ms": 59.4
+        },
+        {
+          "type": "token",
+          "text": "average ",
+          "t_ms": 59.4
+        },
+        {
+          "type": "token",
+          "text": "resolution ",
+          "t_ms": 59.5
+        },
+        {
+          "type": "token",
+          "text": "time ",
+          "t_ms": 59.6
+        },
+        {
+          "type": "token",
+          "text": "of ",
+          "t_ms": 59.6
+        },
+        {
+          "type": "token",
+          "text": "47.7 ",
+          "t_ms": 59.6
+        },
+        {
+          "type": "token",
+          "text": "hours. ",
+          "t_ms": 59.7
+        },
+        {
+          "type": "token",
+          "text": "By ",
+          "t_ms": 59.7
+        },
+        {
+          "type": "token",
+          "text": "priority: ",
+          "t_ms": 59.7
+        },
+        {
+          "type": "token",
+          "text": "P1: ",
+          "t_ms": 59.8
+        },
+        {
+          "type": "token",
+          "text": "21, ",
+          "t_ms": 59.8
+        },
+        {
+          "type": "token",
+          "text": "P2: ",
+          "t_ms": 59.8
+        },
+        {
+          "type": "token",
+          "text": "76, ",
+          "t_ms": 59.8
+        },
+        {
+          "type": "token",
+          "text": "P3: ",
+          "t_ms": 59.9
+        },
+        {
+          "type": "token",
+          "text": "120, ",
+          "t_ms": 59.9
+        },
+        {
+          "type": "token",
+          "text": "P4: ",
+          "t_ms": 59.9
+        },
+        {
+          "type": "token",
+          "text": "83.",
+          "t_ms": 60.0
+        },
+        {
+          "type": "done",
+          "status": "completed",
+          "t_ms": 65.0
+        }
+      ]
+    }
+  ],
+  "recorded_at": "2026-10-27T18:59:40-0400",
+  "note": "Recorded from the real stack. The model is the deterministic fake."
+}
