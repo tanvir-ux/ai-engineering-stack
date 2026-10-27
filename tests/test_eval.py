@@ -20,3 +20,15 @@ def test_retrieval_quality_gate_and_no_acl_leaks() -> None:
     acl = acl_check(index, golden)
     assert acl["forbidden_results_returned"] == 0
     assert acl["restricted_probes_correctly_withheld"] == acl["restricted_probes"]
+
+
+def test_end_to_end_agent_eval_quality_gate() -> None:
+    import asyncio
+
+    from aistack.config import get_settings
+    from aistack.eval.agent_eval import evaluate
+    from aistack.eval.rag_eval import load_golden
+
+    report = asyncio.run(evaluate(get_settings(), load_golden()))
+    assert report["cites_relevant_doc"] >= 0.9
+    assert report["answer_contains_all"] >= 0.8

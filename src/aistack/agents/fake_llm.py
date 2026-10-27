@@ -56,6 +56,8 @@ def plan_for(user_text: str) -> dict[str, Any]:
         ).strip(" .?")
         prio = re.search(r"\bP([1-4])\b", q)
         title = re.sub(r"\s*\bP[1-4]\b\s*", " ", title).strip()
+        title = re.sub(r"(?i)^(a|an|the)\s+", "", title)
+        title = title[:1].upper() + title[1:]
         plan.update(
             action="tool",
             tool="create_ticket",
@@ -88,14 +90,14 @@ def _sentences(text: str) -> list[str]:
 
 def _relevant(question: str, entries: list[tuple[str, str]]) -> bool:
     """True if at least one context sentence shares a meaningful share of the question terms."""
-    qtok = set(tokenize(question))
+    qtok = {t for t in tokenize(question) if not t.isdigit()}  # a lone "4" proves nothing
     if not qtok:
         return False
     best = max(
         (len(qtok & set(tokenize(s))) / len(qtok) for _, t in entries for s in _sentences(t)),
         default=0.0,
     )
-    return best >= 0.25
+    return best >= 0.15
 
 
 def answer_for(user_text: str) -> str:
@@ -112,19 +114,21 @@ def answer_for(user_text: str) -> str:
             "If you expect it to exist, ask the document owner for access."
         )
     qtok = set(tokenize(q))
-    scored: list[tuple[float, str, str]] = []
+    scored: list[tuple[float, int, str, str]] = []
+    seen: set[str] = set()
     for doc_id, text in entries[:3]:
-        for s in _sentences(text):
-            overlap = len(qtok & set(tokenize(s)))
-            scored.append((overlap / (len(qtok) or 1), doc_id, s))
-    scored.sort(key=lambda t: -t[0])
-    best = scored[0]
-    picked = [best]
-    for cand in scored[1:]:
-        if cand[1] == best[1] and cand[0] >= max(0.3, best[0] * 0.6) and len(picked) < 2:
-            picked.append(cand)
-    cites = ", ".join(dict.fromkeys(f"[{p[1]}]" for p in picked))
-    return " ".join(p[2] for p in picked) + f" Sources: {cites}"
+        for pos, sent in enumerate(_sentences(text)):
+            if sent in seen:
+                continue
+            seen.add(sent)
+            overlap = len(qtok & set(tokenize(sent)))
+            scored.append((overlap / (len(qtok) or 1), pos, doc_id, sent))
+    best = max(scored, key=lambda t: t[0])
+    # Keep the best sentence plus up to two more from the same document that also match.
+    same = [t for t in scored if t[2] == best[2] and t[0] >= max(0.15, best[0] * 0.5)]
+    picked = sorted(sorted(same, key=lambda t: -t[0])[:3], key=lambda t: t[1])
+    cites = ", ".join(dict.fromkeys(f"[{p[2]}]" for p in picked))
+    return " ".join(p[3] for p in picked) + f" Sources: {cites}"
 
 
 def _answer_from_tool(name: str, raw: str) -> str:

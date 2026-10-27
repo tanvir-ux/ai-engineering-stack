@@ -1,0 +1,30 @@
+{
+  "model": "fake-deterministic-1",
+  "mode": "fake",
+  "questions": 32,
+  "answer_contains_all": 0.875,
+  "cites_relevant_doc": 0.969,
+  "p50_latency_ms": 11.5,
+  "failures": [
+    {
+      "id": "q07",
+      "question": "Above what amount do I need to attach a receipt?",
+      "answer": "Claims above 1,000 euros need a second approval from the department head. Sources: [fin-001]"
+    },
+    {
+      "id": "q10",
+      "question": "Who has to approve a purchase of 30,000 euros?",
+      "answer": "Purchases above 50,000 euros need the CFO. Purchases up to 5,000 euros need the approval of a manager. For any purchase above 10,000 euros at least three written quotes are required unless procurement approves a single-source exception. Sources: [fin-003]"
+    },
+    {
+      "id": "q24",
+      "question": "Where is the company headquartered and how many people work there?",
+      "answer": "is a fictional logistics company used as sample data for this project. The company employs about 3,400 people and operates 41 warehouses in 12 countries. The company is organised into four divisions: Road, Ocean, Air and Contract Logistics. Sources: [pub-001]"
+    },
+    {
+      "id": "q25",
+      "question": "By which year does the company want to be net-zero?",
+      "answer": "The company employs about 3,400 people and operates 41 warehouses in 12 countries. In the last financial year it delivered 18 million shipments. The company is organised into four divisions: Road, Ocean, Air and Contract Logistics. Sources: [pub-001]"
+    }
+  ]
+}

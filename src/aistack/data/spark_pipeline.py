@@ -291,6 +291,9 @@ def run(
             if r[0] in VALID_CLASSES
         ),
     }
+    metrics["tickets_duplicates_removed"] = (
+        metrics["tickets_ingested"] - metrics["tickets_clean"] - metrics["tickets_quarantined"]
+    )
     if export is not None:
         export.mkdir(parents=True, exist_ok=True)
         _pdf(gold_df.orderBy("chunk_id")).to_parquet(export / "chunks.parquet", index=False)

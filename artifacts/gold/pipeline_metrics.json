@@ -15,5 +15,6 @@
     "internal",
     "public",
     "security"
-  ]
+  ],
+  "tickets_duplicates_removed": 4
 }
