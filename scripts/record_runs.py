@@ -168,7 +168,7 @@ def main() -> None:
                 "question": sc["question"],
                 "segments": segments,
                 "recorded_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
-                "note": "Recorded from the real stack. The model is the deterministic fake.",
+                "note": "The model is the deterministic fake.",
             }
             (out / f"{sc['id']}.json").write_text(json.dumps(rec, indent=2))
             index.append(

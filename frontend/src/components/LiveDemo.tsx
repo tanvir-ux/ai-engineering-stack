@@ -36,7 +36,7 @@ export function LiveDemo({ apiBase }: { apiBase: string }) {
         .then((t) => {
           sessionStorage.setItem(TOKEN_KEY, t);
           setToken(t);
-          window.history.replaceState({}, "", cfg.redirectUri + "?live=" + encodeURIComponent(apiBase));
+          window.history.replaceState({}, "", `${cfg.redirectUri}?live=${encodeURIComponent(apiBase)}`);
         })
         .catch((e: Error) => setError(e.message));
     }

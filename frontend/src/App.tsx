@@ -3,9 +3,19 @@ import { LiveDemo } from "./components/LiveDemo";
 import { ReplayDemo } from "./components/ReplayDemo";
 import { REPO } from "./lib/layers";
 
+const LIVE_KEY = "aistack.live";
+
 function liveBase(): string | null {
   const p = new URLSearchParams(window.location.search);
-  return p.get("live") ?? (import.meta.env.VITE_API_BASE as string | undefined) ?? null;
+  const fromUrl = p.get("live");
+  if (fromUrl) sessionStorage.setItem(LIVE_KEY, fromUrl);
+  // The identity provider redirects back without our query string, so remember the backend.
+  return (
+    fromUrl ??
+    (p.has("code") ? sessionStorage.getItem(LIVE_KEY) : null) ??
+    (import.meta.env.VITE_API_BASE as string | undefined) ??
+    null
+  );
 }
 
 export default function App() {

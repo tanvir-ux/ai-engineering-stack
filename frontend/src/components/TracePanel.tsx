@@ -6,7 +6,13 @@ export function TracePanel({ state }: { state: ChatState }) {
     <ol className="trace" aria-label="What the system did">
       {steps.map((e, i) => (
         <li key={i} className={`step ${e.type}`}>
-          {e.type === "start" && <span>Request accepted. Workflow thread started.</span>}
+          {e.type === "start" && (
+            <span>
+              {steps.findIndex((x) => x.type === "start") === i
+                ? "Request accepted. Workflow thread started."
+                : "Decision received. Workflow resumed from its saved checkpoint."}
+            </span>
+          )}
           {e.type === "retrieved" && (
             <span>
               Search returned {e.chunks.length} passages the user may read:
