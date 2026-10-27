@@ -17,3 +17,9 @@ derby.log
 *.tfstate*
 .checkpoints/
 coverage/
+.dev/
+*.pem
+dist/
+.mypy_cache/
+.ruff_cache/
+*.log
