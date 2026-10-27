@@ -6,7 +6,7 @@ Model: **fake-deterministic-1** (fake). Questions: 32.
 |---|---|
 | Answer contains every expected fact | 0.875 |
 | Cites a relevant document | 0.969 |
-| p50 workflow latency (ms) | 11.5 |
+| p50 workflow latency (ms) | 11.3 |
 
 Failed questions:
 

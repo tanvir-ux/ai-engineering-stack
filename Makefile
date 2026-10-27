@@ -11,10 +11,10 @@ install:  ## Create .venv and install everything (uv required)
 	uv venv .venv && . .venv/bin/activate && uv pip install -e ".[dev,spark]" && cd frontend && npm ci
 
 data:  ## Rebuild the gold tables with PySpark and Delta (needs Java)
-	$(PY) -m aistack.data.spark_pipeline
+	aistack data
 
 eval:  ## Retrieval eval and agent eval. Rewrites docs/EVAL_REPORT.md and docs/AGENT_EVAL.md
-	$(PY) -m aistack.cli eval
+	$(PY) -m aistack.eval.rag_eval
 	$(PY) -m aistack.eval.agent_eval
 
 test:  ## All Python tests (includes the Spark tests; needs Java) and the front-end tests
@@ -55,10 +55,10 @@ check: lint typecheck test security  ## Everything CI runs for Python and TypeSc
 
 dev-stack:  ## Gateway on :8010 and MCP on :8001, using the local fake model
 	AISTACK_RATE_LIMIT_PER_MINUTE=300 AISTACK_OIDC_ISSUER=http://localhost:8010/idp \
-	  AISTACK_IDP_KEY_FILE=.dev/idp_key.pem $(PY) -m aistack.cli mcp --transport http --port 8001 & \
+	  AISTACK_IDP_KEY_FILE=.dev/idp_key.pem aistack mcp --transport http --port 8001 & \
 	AISTACK_RATE_LIMIT_PER_MINUTE=300 AISTACK_OIDC_ISSUER=http://localhost:8010/idp \
 	  AISTACK_IDP_KEY_FILE=.dev/idp_key.pem AISTACK_MCP_URL=http://127.0.0.1:8001/mcp/ \
-	  $(PY) -m aistack.cli serve --port 8010
+	  aistack serve --port 8010
 
 record:  ## Re-record the demo sessions from a running dev stack
 	$(PY) scripts/record_runs.py --base http://localhost:8010 --out frontend/public/recordings

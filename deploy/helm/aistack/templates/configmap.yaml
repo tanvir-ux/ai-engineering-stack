@@ -6,7 +6,6 @@ metadata:
     {{- include "aistack.labels" . | nindent 4 }}
 data:
   AISTACK_LLM_MODE: {{ .Values.config.llmMode | quote }}
-  AISTACK_VECTOR_STORE: {{ .Values.config.vectorStore | quote }}
   AISTACK_IDP_MODE: {{ .Values.config.idpMode | quote }}
   AISTACK_OIDC_ISSUER: {{ include "aistack.issuer" . | quote }}
   AISTACK_OIDC_JWKS_URL: "http://{{ .Release.Name }}-api:8000/idp/jwks.json"

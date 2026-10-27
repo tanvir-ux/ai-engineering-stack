@@ -7,9 +7,9 @@ Reproduce: `make eval`
 | Retriever | hit@1 | hit@3 | hit@5 | MRR | answer text in top-3 context | p50 latency (ms) |
 |---|---|---|---|---|---|---|
 | bm25 | 0.969 | 1.000 | 1.000 | 0.984 | 0.969 | 0.04 |
-| dense (hashing embeddings) | 0.719 | 0.938 | 0.938 | 0.818 | 0.875 | 0.04 |
-| hybrid (RRF) | 0.938 | 1.000 | 1.000 | 0.964 | 0.969 | 0.09 |
-| hybrid (RRF) + rerank | 0.969 | 1.000 | 1.000 | 0.979 | 0.969 | 0.35 |
+| dense (hashing embeddings) | 0.719 | 0.938 | 0.938 | 0.818 | 0.875 | 0.05 |
+| hybrid (RRF) | 0.938 | 1.000 | 1.000 | 0.964 | 0.969 | 0.08 |
+| hybrid (RRF) + rerank | 0.969 | 1.000 | 1.000 | 0.979 | 0.969 | 0.32 |
 
 ## Access-control check
 

@@ -24,7 +24,6 @@ class Settings(BaseSettings):
     # Data / retrieval
     gold_chunks_path: Path = REPO_ROOT / "artifacts" / "gold" / "chunks.parquet"
     tickets_path: Path = REPO_ROOT / "artifacts" / "gold" / "tickets.parquet"
-    vector_store: str = "local"  # local | pinecone
     pinecone_api_key: str = Field(default="", validation_alias="PINECONE_API_KEY")
     pinecone_index: str = Field(default="aistack-chunks", validation_alias="PINECONE_INDEX")
 

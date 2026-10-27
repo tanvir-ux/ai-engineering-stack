@@ -23,3 +23,6 @@ dist/
 .mypy_cache/
 .ruff_cache/
 *.log
+
+# Local Netlify folder
+.netlify

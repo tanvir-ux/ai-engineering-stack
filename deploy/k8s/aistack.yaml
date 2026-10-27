@@ -59,7 +59,6 @@ metadata:
     app.kubernetes.io/managed-by: Helm
 data:
   AISTACK_LLM_MODE: "fake"
-  AISTACK_VECTOR_STORE: "local"
   AISTACK_IDP_MODE: "mock"
   AISTACK_OIDC_ISSUER: "https://api.copilot.example.com/idp"
   AISTACK_OIDC_JWKS_URL: "http://aistack-api:8000/idp/jwks.json"

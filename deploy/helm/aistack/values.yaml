@@ -10,7 +10,6 @@ publicWebUrl: https://copilot.example.com
 
 config:
   llmMode: fake          # fake | openai | gemini
-  vectorStore: local     # local | pinecone
   idpMode: mock          # mock | external. Use external (Keycloak, Auth0, Entra ID) in production.
   oidcIssuer: ""         # defaults to <publicApiUrl>/idp when idpMode is mock
   oidcAudience: aistack-api
