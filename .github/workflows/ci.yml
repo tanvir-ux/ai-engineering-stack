@@ -21,6 +21,9 @@ jobs:
         with:
           distribution: temurin
           java-version: "21"
+      - uses: azure/setup-helm@v4
+        with:
+          version: v4.3.1
       - run: pip install -e ".[dev,spark]"
       - run: ruff check .
       - run: ruff format --check .
