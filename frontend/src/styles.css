@@ -1,0 +1,69 @@
+:root {
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --ink: #1b2233;
+  --muted: #5d6679;
+  --accent: #2b59ff;
+  --ok: #0f8a5f;
+  --warn: #b26a00;
+  --bad: #c0392b;
+  --line: #e1e5ee;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); line-height: 1.55; }
+a { color: var(--accent); }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.4rem max(1rem, calc((100vw - 1040px) / 2)); background: #101832; color: #fff; }
+.top h1 { margin: 0; font-size: 1.6rem; }
+.tag { margin: 0.2rem 0 0; color: #b8c3e6; }
+.gh { color: #fff; border: 1px solid #5167b8; padding: 0.45rem 0.9rem; border-radius: 8px; text-decoration: none; white-space: nowrap; }
+main { max-width: 1040px; margin: 0 auto; padding: 1rem; }
+section { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem 1.4rem; margin: 1rem 0; }
+section h2 { margin-top: 0; }
+.banner { background: #fff6e0; border: 1px solid #f1d58a; color: #6b4a00; padding: 0.7rem 1rem; border-radius: 10px; }
+.tabs, .personas { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tab, button { font: inherit; border: 1px solid var(--accent); background: var(--accent); color: #fff; padding: 0.45rem 0.9rem; border-radius: 8px; cursor: pointer; }
+.tab { background: #fff; color: var(--accent); }
+.tab.active { background: var(--accent); color: #fff; }
+button.ghost { background: #fff; color: var(--accent); }
+button:disabled { opacity: 0.5; cursor: default; }
+.blurb { color: var(--muted); }
+.persona { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; background: #f0f3fb; border-radius: 10px; padding: 0.8rem 1rem; margin-bottom: 1rem; }
+.persona small { color: var(--muted); }
+.grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.2rem; }
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+.grid h3 { margin: 0 0 0.5rem; font-size: 1rem; color: var(--muted); }
+.chat { display: flex; flex-direction: column; gap: 0.6rem; min-height: 160px; margin-bottom: 0.6rem; }
+.bubble { padding: 0.65rem 0.9rem; border-radius: 12px; max-width: 95%; white-space: pre-wrap; }
+.bubble.user { align-self: flex-end; background: var(--accent); color: #fff; }
+.bubble.bot { background: #eef1f8; }
+.muted { color: var(--muted); }
+.notice { padding: 0.65rem 0.9rem; border-radius: 10px; border: 1px solid var(--line); }
+.notice.deny { background: #fdecea; border-color: #f2b8b0; color: #7d2118; }
+.notice.approve { background: #eaf6ff; border-color: #a9d4f5; }
+.row { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+.row input { flex: 1; font: inherit; padding: 0.5rem 0.7rem; border: 1px solid var(--line); border-radius: 8px; }
+.toolresult { background: #101832; color: #d9e2ff; padding: 0.7rem; border-radius: 8px; overflow: auto; font-size: 0.85rem; margin: 0; }
+.trace { margin: 0; padding-left: 1.2rem; font-size: 0.92rem; }
+.trace li { margin-bottom: 0.45rem; }
+.trace ul { margin: 0.2rem 0 0; padding-left: 1.1rem; color: var(--muted); }
+.trace small { color: var(--muted); display: block; }
+.step.denied { color: var(--bad); }
+.step.approval_required { color: var(--warn); }
+.hint, .fine { color: var(--muted); font-size: 0.88rem; }
+.steps li { margin-bottom: 0.4rem; }
+.layers { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
+.layer { display: flex; gap: 0.9rem; border: 1px solid var(--line); border-left: 5px solid var(--ok); border-radius: 10px; padding: 0.7rem 1rem; background: #fcfdff; }
+.layer.offline { border-left-color: var(--warn); }
+.layer.ci { border-left-color: #6b4de6; }
+.layer .num { font-weight: 700; color: var(--muted); font-size: 1.2rem; min-width: 1.5rem; }
+.layer h3 { margin: 0; font-size: 1.05rem; }
+.layer h3 small { font-weight: 400; color: var(--muted); margin-left: 0.4rem; }
+.layer p { margin: 0.25rem 0; }
+.meta { font-size: 0.9rem; }
+.chip { display: inline-block; padding: 0.1rem 0.55rem; border-radius: 999px; font-size: 0.8rem; background: #e3f6ee; color: #0b6b49; }
+.chip.offline { background: #fff0d6; color: #8a5300; }
+.chip.ci { background: #ece8ff; color: #4a32b5; }
+.honesty { border-color: #f1d58a; background: #fffdf5; }
+footer { text-align: center; color: var(--muted); padding: 1.5rem 1rem 2.5rem; font-size: 0.9rem; }
