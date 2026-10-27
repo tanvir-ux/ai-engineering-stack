@@ -2,6 +2,8 @@
 
 # ai-engineering-stack
 
+Mirror of the demo on GitHub Pages: https://tanvir-ux.github.io/ai-engineering-stack/
+
 A small but complete **enterprise knowledge copilot** for a fictional freight company, "Meridian Freight Co.". It exists to show, in one repository, every layer of a modern AI system working together: web front end, sign-in, access control, API gateway, workflow orchestration, an AI agent, tool servers (MCP), a data lakehouse (PySpark, Delta, Databricks, Snowflake), retrieval, evaluation, observability and production deployment.
 
 [![CI](https://github.com/tanvir-ux/ai-engineering-stack/actions/workflows/ci.yml/badge.svg)](https://github.com/tanvir-ux/ai-engineering-stack/actions/workflows/ci.yml)
