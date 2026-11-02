@@ -8,6 +8,7 @@ A small but complete **enterprise knowledge copilot** for a fictional freight co
 
 [![CI](https://github.com/tanvir-ux/ai-engineering-stack/actions/workflows/ci.yml/badge.svg)](https://github.com/tanvir-ux/ai-engineering-stack/actions/workflows/ci.yml)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
+[![M8ven Score](https://m8ven.ai/badge/mcp/tanvir-ux-ai-engineering-stack-19y31c?v=ff3e52992b81740d66eb5626cd11f15c)](https://m8ven.ai/mcp/tanvir-ux-ai-engineering-stack-19y31c?s=readme)
 
 ![Demo: asking a question, human approval for an action](docs/img/demo.gif)
 
